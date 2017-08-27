@@ -1,4 +1,4 @@
-package com.spe.functor;
+package com.spe.applicative;
 
 import org.junit.Test;
 
@@ -6,23 +6,23 @@ import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HashApplicativeTest {
+public class MyApplicativeTest {
 
     @Test
     public void should_apply() {
-        HashApplicative h1Applicative = HashApplicative.of(surroundWithH1());
-        HashApplicative<Integer> myApplicative = HashApplicative.of(42);
+        MyApplicative h1Applicative = MyApplicative.of(surroundWithH1());
+        MyApplicative<Integer> myApplicative = MyApplicative.of(42);
 
-        HashApplicative applied = myApplicative.apply(h1Applicative);
+        MyApplicative applied = myApplicative.apply(h1Applicative);
         assertThat(applied.get()).isEqualTo("<h1>42</h1>");
     }
 
     @Test
     public void should_apply_enhanced() {
-        HashApplicative h1 = HashApplicative.of(surroundWithH1());
-        HashApplicative<Integer> myApplicative = HashApplicative.of(42);
+        MyApplicative h1 = MyApplicative.of(surroundWithH1());
+        MyApplicative<Integer> myApplicative = MyApplicative.of(42);
 
-        HashApplicative applied = myApplicative
+        MyApplicative applied = myApplicative
                 .fmap(x -> x + 13)
                 .apply(h1)
                 .fmap(x -> x + " for Real");
@@ -31,9 +31,9 @@ public class HashApplicativeTest {
 
     @Test
     public void should_fmap() {
-        HashApplicative<Integer> myApplicative = HashApplicative.of(42);
+        MyApplicative<Integer> myApplicative = MyApplicative.of(42);
 
-        HashApplicative applied = myApplicative
+        MyApplicative applied = myApplicative
                 .fmap(x -> x + 13)
                 .fmap(x -> x + 10)
                 .fmap(x -> x + 5);
@@ -43,10 +43,10 @@ public class HashApplicativeTest {
 
     @Test
     public void apply_should_stuck() {
-        HashApplicative wrappedH1 = HashApplicative.of(wrapApplicative());
-        HashApplicative<Integer> myApplicative = HashApplicative.of(42);
+        MyApplicative wrappedH1 = MyApplicative.of(wrapApplicative());
+        MyApplicative<Integer> myApplicative = MyApplicative.of(42);
 
-        HashApplicative applied = myApplicative
+        MyApplicative applied = myApplicative
                 .fmap(x -> x + 13)
                 .apply(wrappedH1)
                 .fmap(x -> x + " for Real");
@@ -59,7 +59,7 @@ public class HashApplicativeTest {
     }
 
     private Function<Object, Applicative> wrapApplicative() {
-        return x -> HashApplicative.of("<h1>" + x + "</h1>");
+        return x -> MyApplicative.of("<h1>" + x + "</h1>");
     }
 
 }

@@ -1,19 +1,25 @@
-package com.spe.functor;
+package com.spe.person;
 
 public class Person {
 
     private final String name;
     private final Person.Address address;
     private final Integer age;
+    private final PersonBoxed<Person> son;
 
-    public Person(String name, Address address, Integer age) {
+    public Person(String name, Address address, Integer age, PersonBoxed<Person> son) {
         this.name = name;
         this.address = address;
         this.age = age;
+        this.son = son;
     }
 
     public String getName() {
         return name;
+    }
+
+    public PersonBoxed<Person> getSon() {
+        return son;
     }
 
     public Address getAddress() {

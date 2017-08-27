@@ -3,6 +3,7 @@ package com.spe.maybe;
 import java.util.function.Function;
 
 public class Just<T> extends Maybe<T> {
+
     private T mValue;
 
     public Just(T data) {
@@ -19,19 +20,11 @@ public class Just<T> extends Maybe<T> {
         return false;
     }
 
-    // monad
+    // maybe
     @Override
     public <U> Maybe<U> bind(Function<? super T, Maybe<U>> mapping) {
         return mapping.apply(mValue);
     }
-
-    /*
-
-    @Override
-    public <B> Monad<B> bind(Function<? super T, ? extends Monad> mapping) {
-        return null;
-    }
-     */
 
     @Override
     public <U> Maybe<U> fmap(Function<? super T, U> mapping) {
@@ -39,10 +32,8 @@ public class Just<T> extends Maybe<T> {
     }
 
 
-/*    // >>=
-    def flatMap[B](f: A => Maybe[B]): Maybe[B]
-
-    // >>
+    // N.B : map is a subset of flatMap
+    /*
     def map[B](f: A => B): Maybe[B] = flatMap { a => Just(f(a)) }
 
     a -> f(a) puis a -> Just (a) avec a -> f(a)
@@ -51,17 +42,8 @@ public class Just<T> extends Maybe<T> {
 
     a -> Just(a)
     puis a -> f(a) avec a -> Just(a)
-        = f(Just(a))  WRONG*/
-
-
-    // functor
-   /* @Override
-    public <U> U map(Function<? super T, ? extends U> mapping) {
-        return mapping.apply(mValue);
-    }
-*/
-    //applicative ??
-
+        = f(Just(a))  WRONG
+    */
 
     @Override
     public boolean isJust() {

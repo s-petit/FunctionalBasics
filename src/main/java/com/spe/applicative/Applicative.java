@@ -1,4 +1,6 @@
-package com.spe.functor;
+package com.spe.applicative;
+
+import com.spe.functor.Functor;
 
 import java.util.function.Function;
 
